@@ -4,7 +4,7 @@ import OSULogo from '../assets/wexner.png';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../firebase-config';
-import { ipAddress } from '../constants';
+import { API_BASE_URL } from '../constants';
 
 function SignInPage() {
     const [email, setEmail] = useState('');
@@ -24,7 +24,7 @@ function SignInPage() {
             localStorage.setItem('idToken', idToken);
 
             // ✅ Step 3: Verify user in backend
-            const response = await fetch(`http://${ipAddress}:3000/api/users/me`, {
+            const response = await fetch(`${API_BASE_URL}/api/users/me`, {
                 headers: {
                     'Authorization': `Bearer ${idToken}`,
                 },
@@ -39,7 +39,7 @@ function SignInPage() {
 
             // ✅ Step 4: Redirect based on role
             if (userData.role === 'admin') {
-                window.location.href = 'http://nodejs-env.eba-ggmcwhgm.us-east-2.elasticbeanstalk.com/index.html';
+                window.location.href = `${API_BASE_URL}/admin-dashboard.html`;
             } else if (userData.role === 'doctor') {
                 window.location.href = '/TBT-Companion-webapp/dashboard';
             } else {
@@ -68,7 +68,7 @@ function SignInPage() {
             localStorage.setItem('idToken', idToken);
 
             // Step 3: Verify user in backend
-            const response = await fetch(`http://${ipAddress}:3000/api/users/me`, {
+            const response = await fetch(`${API_BASE_URL}/api/users/me`, {
                 headers: {
                     'Authorization': `Bearer ${idToken}`,
                 },
@@ -84,7 +84,7 @@ function SignInPage() {
             // Step 4: Redirect based on role
             if (userData.role === 'admin') {
                 // Redirect to your coworker’s existing admin HTML page
-                window.location.href = `http://${ipAddress}:3000/admin-dashboard.html`;
+                window.location.href = `${API_BASE_URL}/admin-dashboard.html`;
             } else if (userData.role === 'doctor') {
                 // React dashboard
                 window.location.href = '/dashboard';

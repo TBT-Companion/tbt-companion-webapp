@@ -1,3 +1,17 @@
+## Backend connection
+
+The frontend uses `https://tbt-companion-backend.onrender.com` by default for API requests and the admin dashboard. Firebase still handles sign-in; its ID token is sent to the backend.
+
+To override the backend, set this in `.env.local` or your frontend hosting environment before building:
+
+```env
+VITE_API_BASE_URL=https://tbt-companion-backend.onrender.com
+```
+
+Restart the Vite dev server after changing the value. For a deployed frontend, rebuild and redeploy because Vite embeds environment values at build time.
+
+The backend must allow the frontend origin through CORS, including the `Authorization` and `Content-Type` request headers and preflight requests. Its Firebase Admin configuration must use the same Firebase project as this frontend (`osucomprop4`). The backend must serve `/admin-dashboard.html` for admin sign-in redirects.
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

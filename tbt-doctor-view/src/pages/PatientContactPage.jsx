@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/OSU_LOGO.png";
 import TextMessage from "../components/TextMessage";
-import { ipAddress } from "../constants"
+import { API_BASE_URL } from "../constants"
 
 const PatientContactPage = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const PatientContactPage = () => {
       try {
         const idToken = localStorage.getItem("idToken");
         const res = await fetch(
-          `http://${ipAddress}:3000/api/chat/messages/${patient._id}`,
+          `${API_BASE_URL}/api/chat/messages/${patient._id}`,
           {
             headers: { Authorization: `Bearer ${idToken}` },
           }
@@ -61,7 +61,7 @@ const PatientContactPage = () => {
     ]);
 
     const idToken = localStorage.getItem("idToken");
-    await fetch(`http://${ipAddress}:3000/api/chat/messages`, {
+    await fetch(`${API_BASE_URL}/api/chat/messages`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${idToken}`,

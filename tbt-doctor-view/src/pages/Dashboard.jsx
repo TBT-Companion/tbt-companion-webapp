@@ -11,7 +11,7 @@ import PainLog from "../components/PainLog";
 import ProgressReport from "../components/ProgressReport";
 import PatientContact from "../components/PatientContact";
 import SearchBar from "../components/SearchBar";
-import { ipAddress } from "../constants";
+import { API_BASE_URL } from "../constants";
 
 
 
@@ -53,7 +53,7 @@ const Dashboard = () => {
         try {
             setLoading(true);
             const idToken = localStorage.getItem("idToken");
-            const response = await fetch(`http://${ipAddress}:3000/api/users/me`, {
+            const response = await fetch(`${API_BASE_URL}/api/users/me`, {
                 headers: {
                     Authorization: `Bearer ${idToken}`,
                 },
@@ -80,7 +80,7 @@ const Dashboard = () => {
         try {
             setLoading(true);
             const idToken = localStorage.getItem("idToken");
-            const response = await fetch(`http://${ipAddress}:3000/api/users/patients`, {
+            const response = await fetch(`${API_BASE_URL}/api/users/patients`, {
                 headers: {
                     Authorization: `Bearer ${idToken}`,
                 },
@@ -123,7 +123,7 @@ const Dashboard = () => {
 
             const idToken = localStorage.getItem("idToken");
             const response = await fetch(
-                `http://${ipAddress}:3000/patient/firebase/${firebaseUid}`,
+                `${API_BASE_URL}/patient/firebase/${firebaseUid}`,
                 {
                     headers: { Authorization: `Bearer ${idToken}` },
                 }
