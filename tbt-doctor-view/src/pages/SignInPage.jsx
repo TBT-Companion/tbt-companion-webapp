@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SignInPage.css';
 import OSULogo from '../assets/wexner.png';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -7,6 +8,7 @@ import { auth } from '../firebase-config';
 import { API_BASE_URL } from '../constants';
 
 function SignInPage() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -41,7 +43,7 @@ function SignInPage() {
             if (userData.role === 'admin') {
                 window.location.href = `${API_BASE_URL}/admin-dashboard.html`;
             } else if (userData.role === 'doctor') {
-                window.location.href = '/TBT-Companion-webapp/dashboard';
+                navigate('/dashboard');
             } else {
                 setError('Access denied: this portal is only for doctors or admins.');
                 await auth.signOut();
@@ -87,7 +89,7 @@ function SignInPage() {
                 window.location.href = `${API_BASE_URL}/admin-dashboard.html`;
             } else if (userData.role === 'doctor') {
                 // React dashboard
-                window.location.href = '/dashboard';
+                navigate('/dashboard');
             } else {
                 setError('Access denied: this portal is only for doctors or admins.');
                 await auth.signOut();
